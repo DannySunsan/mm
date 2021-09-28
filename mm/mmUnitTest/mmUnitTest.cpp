@@ -14,16 +14,14 @@ int main()
     HMODULE hModule = LoadLibrary(IMPORTDLL);
     if (hModule)
     {
-        func f = (func)GetProcAddress(hModule, "loadConfig");
+        func f = (func)GetProcAddress(hModule, "writeXml");
         if (f)
         {
             f();
-            std::cout << "loadConfigSuccees!\n";
         }
           
     }
-       
+
     CmmUtility::test();
-    std::cout << "Hello World!\n";
-    system("pause");
+   // system("pause");
 }

@@ -8,7 +8,7 @@
             "name": "Python: main",
             "type": "python",
             "request": "launch",
-            "program": "d:\\syq-repos\\mm\\main.py",
+            "program": "mm\\testPy\\main.py",
             "console": "integratedTerminal"
         }
     ]

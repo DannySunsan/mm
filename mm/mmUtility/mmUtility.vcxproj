@@ -14,11 +14,17 @@
     <ClInclude Include="..\..\include\mmUtility\CmmUtility.h" />
     <ClInclude Include="..\..\include\mmUtility\util.h" />
     <ClInclude Include="Actor.h" />
+    <ClInclude Include="mm_define.h" />
+    <ClInclude Include="RefCounterPtr.h" />
+    <ClInclude Include="Singleton.h" />
+    <ClInclude Include="strategy.h" />
     <ClInclude Include="ThreadPool.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="CmmUtility.cpp" />
+    <ClCompile Include="RefCounterPtr.cpp" />
+    <ClCompile Include="Singleton.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
