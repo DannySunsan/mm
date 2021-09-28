@@ -54,10 +54,9 @@ def save(url):
             f.write(video.content)
 
 def main():
-    for i in range(5):
-        res1 = get_index('http://www.xiaohuar.com/list-3-%s.html'% i )
-        res2 = parse_index(res1)
-        get_detail(res2)
+    res1 = get_index('http://www.sino.com')
+    res2 = parse_index(res1)
+    get_detail(res2)
 
 if __name__ == "__main__":
     main()
