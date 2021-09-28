@@ -4,19 +4,26 @@
 #include <iostream>
 #include "mmUtility/util.h"
 #ifndef MDebug
-#define MMUTILITY  L"CmmUtility.dll"
+#define IMPORTDLL  L"import.dll"
 #else
-#define MMUTILITY  L"CmmUtilityD.dll"
+#define IMPORTDLL  L"importD.dll"
 #endif // !MDebug
-
+typedef int(*func)();
 int main()
 {
-    wchar_t path[255];
-    wchar_t* filePath = _wgetcwd(path,255);
-    filePath = lstrcatW(filePath, L"\\..\\");
-    filePath = lstrcatW(filePath, MMUTILITY);
-
-    HMODULE hModule = LoadLibrary(filePath);
-   // CmmUtility::test();
+    HMODULE hModule = LoadLibrary(IMPORTDLL);
+    if (hModule)
+    {
+        func f = (func)GetProcAddress(hModule, "loadConfig");
+        if (f)
+        {
+            f();
+            std::cout << "loadConfigSuccees!\n";
+        }
+          
+    }
+       
+    CmmUtility::test();
     std::cout << "Hello World!\n";
+    system("pause");
 }

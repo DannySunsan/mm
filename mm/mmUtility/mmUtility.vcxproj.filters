@@ -21,9 +21,18 @@
     <ClInclude Include="..\..\include\mmUtility\util.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadPool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CmmUtility.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
