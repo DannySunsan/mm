@@ -92,4 +92,3 @@ int writeXml()
     write_xml(strPath, rt, std::locale(), setting);
     return 0;
 }
-

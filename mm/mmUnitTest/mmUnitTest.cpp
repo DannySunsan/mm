@@ -22,6 +22,11 @@ int main()
           
     }
 
-    CmmUtility::test();
-   // system("pause");
+    //CmmUtility::test();
+
+    std::string  strSrc = "Bob Jack c++ SYQ";
+    std::vector<std::string> vctDest;
+    CmmUtility::splitString(strSrc, vctDest);
+
+   system("pause");
 }

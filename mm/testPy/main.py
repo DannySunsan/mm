@@ -2,7 +2,7 @@ import re
 import requests
 import hashlib
 import time
-
+import mmlogin
 # respose=requests.get('http://www.xiaohuar.com/v/')
 # # print(respose.status_code)# 响应的状态码
 # # print(respose.content)  #返回字节信息
@@ -54,9 +54,13 @@ def save(url):
             f.write(video.content)
 
 def main():
-    res1 = get_index('http://www.sino.com')
+    '''res1 = get_index('http://doc.united-imaging.com/kass/basic/login/action_check.jsp')
     res2 = parse_index(res1)
-    get_detail(res2)
+    get_detail(res2)'''
+    #mmlogin.login()
+    for i in range(0,5):
+        print('\a')
+        time.sleep(1000)
 
 if __name__ == "__main__":
     main()

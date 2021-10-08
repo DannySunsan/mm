@@ -1,12 +1,45 @@
 #include "boost/any.hpp"
+#include "boost/regex.hpp"
+#include <boost/tokenizer.hpp> 
+
 #include <vector>
 #include <iostream>
-#include "mmUtility/util.h"
+#include "mmUtility/CmmUtility.h"
+void testAny();
+void teststr();
+
+template <class _Arg, class _Result>
+struct unary_function {
+    typedef _Arg argument_type;
+    typedef _Result result_type;
+
+    result_type operator()(argument_type&& ar)
+    {
+        return static_cast<result_type>(ar * 5);
+    }
+};
 
 void CmmUtility::test()
 {
     std::cout << "this is test function\n";
-
+    testAny();
+    teststr();
+}
+int CmmUtility::splitString(const std::string& strSrc, std::vector<std::string>& vecRet, char c)
+{
+    vecRet.clear();
+    typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
+    boost::char_separator<char> sep(&c);
+    
+    tokenizer tok(strSrc, sep);
+    for (tokenizer::iterator it = tok.begin(); it != tok.end(); ++it)
+    {
+        vecRet.emplace_back(*it);
+    }
+    return vecRet.size();
+}
+void testAny()
+{
     std::vector<boost::any> vecAny;
 
     vecAny.emplace_back(1);
@@ -26,4 +59,15 @@ void CmmUtility::test()
             std::cerr << e.what() << std::endl;
         }
     }
+}
+void teststr()
+{
+ 
+}
+
+void testFakeFun()
+{
+    unary_function<int, int> p;
+    int ret = p(3);
+    std::cout << ret <<std::endl;
 }
