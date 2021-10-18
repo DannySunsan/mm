@@ -38,6 +38,29 @@ int CmmUtility::splitString(const std::string& strSrc, std::vector<std::string>&
     }
     return vecRet.size();
 }
+std::vector<std::string> reg(std::string s, std::string pattern,int nStart=0)
+{
+    auto res = std::vector<std::string>();
+    boost::regex r(pattern);
+    boost::sregex_iterator pos(s.cbegin(), s.cend(), r), end;
+    for (; pos != end; ++pos)
+        res.push_back(pos->str(nStart));
+    return res;
+}
+void CmmUtility::splitFunc(const std::string& strSrc, std::vector<std::string>& vecStr, std::vector<int>& vecNum)
+{
+    std::string fm1("(?<=\\[)(\\d+)(?=\\])");
+    boost::smatch what;
+
+    for (auto s : reg(strSrc, fm1))
+    {
+        vecNum.emplace_back(atoi(s.c_str()));
+    }
+        
+    std::string fm2("(?<=\")[a-z]+(?=\")");
+    vecStr = reg(strSrc, fm2);
+}
+
 void testAny()
 {
     std::vector<boost::any> vecAny;

@@ -12,19 +12,33 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\mmUtility\CmmUtility.h" />
+    <ClInclude Include="..\..\include\mmUtility\hashtable.h" />
+    <ClInclude Include="..\..\include\mmUtility\TCPThread.h" />
     <ClInclude Include="..\..\include\mmUtility\util.h" />
     <ClInclude Include="Actor.h" />
+    <ClInclude Include="mmTcpClientThread.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="mm_define.h" />
     <ClInclude Include="RefCounterPtr.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="strategy.h" />
+    <ClInclude Include="mmTcpServerThread.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="ThreadPool.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="CmmUtility.cpp" />
+    <ClCompile Include="mmTcpClientThread.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="RefCounterPtr.cpp" />
     <ClCompile Include="Singleton.cpp" />
+    <ClCompile Include="mmTcpServerThread.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

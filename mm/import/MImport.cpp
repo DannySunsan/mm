@@ -9,7 +9,7 @@ using namespace std;
 using namespace boost::property_tree;
 const string g_Common_Config_FilePath = "/../common_config/common_plug.xml";
 const string g_Test_FilePath = "/../common_config/test.xml";
-
+const string g_Data_FilePath = "/../common_config/data";
 
 string getLibraryPath()
 {
@@ -91,4 +91,18 @@ int writeXml()
     string strPath = getLibraryPath() + g_Test_FilePath;
     write_xml(strPath, rt, std::locale(), setting);
     return 0;
+}
+
+extern"C" __declspec(dllexport)
+void loadDataFile(string& strFile)
+{   
+    string strPath = getLibraryPath() + g_Data_FilePath;
+    ifstream is;
+    string strFc;
+    string strNm;
+    is.open(strPath,ios::in);
+    is >> strFc;
+    is >> strNm;
+    strFile = strFc + strNm;
+    is.close();
 }
