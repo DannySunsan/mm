@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\mmUtility\CmmUtility.h" />
+    <ClInclude Include="..\..\include\mmUtility\hashMap.h" />
     <ClInclude Include="..\..\include\mmUtility\hashtable.h" />
     <ClInclude Include="..\..\include\mmUtility\TCPThread.h" />
     <ClInclude Include="..\..\include\mmUtility\util.h" />

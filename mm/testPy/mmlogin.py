@@ -1,53 +1,32 @@
-# -*- coding: UTF-8 -*-
-from urllib import request
-from urllib import error
-from urllib import parse
+import urllib.request
+import urllib.parse
 from http import cookiejar
 
-def login():
-    #登陆地址
-    login_url = 'http://doc.united-imaging.com/kass/basic/login/action_check.jsp'    
-    #User-Agent信息                   
-    user_agent = r'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.94 Safari/537.36'
-    #Headers信息
-    head = {'User-Agnet': user_agent, 'Connection': 'keep-alive'}
-    #登陆Form_Data信息
-    Login_Data = {}
-    Login_Data['Tx_LoginToken'] = '358C0FB9E54587B7D7919E21093A931F'
-    Login_Data['Tx_KassUserName'] = 'yongquan.sun'
-    Login_Data['Tx_KassPassword'] = 'Syq008753.'         #是否一个月内自动登陆
-    Login_Data['Tx_KassLanguage'] = 'zh-cn'       #改成你自己的用户名
-    #使用urlencode方法转换标准格式
-    logingpostdata = parse.urlencode(Login_Data).encode('utf-8')
-    #声明一个CookieJar对象实例来保存cookie
-    cookie = cookiejar.CookieJar()
-    #利用urllib.request库的HTTPCookieProcessor对象来创建cookie处理器,也就CookieHandler
-    cookie_support = request.HTTPCookieProcessor(cookie)
-    #通过CookieHandler创建opener
-    opener = request.build_opener(cookie_support)
-    #创建Request对象
-    req1 = request.Request(url=login_url, data=logingpostdata, headers=head)
-
-    #面向对象地址
-    '''date_url = 'http://date.jobbole.com/wp-admin/admin-ajax.php'
-    #面向对象
-    Date_Data = {}
-    Date_Data['action'] = 'get_date_contact'
-    Date_Data['postId'] = '4128'
-    #使用urlencode方法转换标准格式
-    datepostdata = parse.urlencode(Date_Data).encode('utf-8')
-    req2 = request.Request(url=date_url, data=datepostdata, headers=head)'''
+def browser(url,user,passwd):  
     try:
-        #使用自己创建的opener的open方法
-        response1 = opener.open(req1)
-        #response2 = opener.open(req2)
-        html = response1.read().decode('utf-8')
-        index = html.find('jb_contact_email')
-        #打印查询结果
-        #print('联系邮箱:%s' % html[index+19:-2])
+        #获得一个cookieJar实例
+        cj = cookiejar.CookieJar()
+        #cookieJar作为参数，获得一个opener的实例
+        
+        opener =urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
+        #伪装成一个正常的浏览器，避免有些web服务器拒绝访问。
+        opener.addheaders = [('User-agent','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36'),
+        ('Accept','text/html,application/xhtml+xml,application/xml'),
+        ('Cookie','JSESSIONID=6F142420AA6D76E7685CA1C99E22A293; kabalainstall=false')]
+        #生成Post数据，含有登陆用户名密码。urlencode
+        #data = urllib.parse.urlencode({"kass_username_in":user,"kass_password_in":passwd})
+        #以post的方法访问登陆页面，访问之后cookieJar会自定保存cookie
+        # urllib.request.install_opener(opener)
+        # response3=urllib.request.urlopen(url)
+        
+        #opener.open(login_page,data.encode())
+        #cookiejar.FileCookieJar.save('\\cookie')
+        # 以带cookie的方式访问页面
+        op=opener.open(url)
+        # resp = urllib.request.urlopen(url)
+        #读取页面源码
+        data = op.read().decode('utf-8')
+        return data
 
-    except error.URLError as e:
-        if hasattr(e, 'code'):
-            print("HTTPError:%d" % e.code)
-        elif hasattr(e, 'reason'):
-            print("URLError:%s" % e.reason)
+    except Exception as e:
+        print(str(e))

@@ -1,12 +1,18 @@
 #include "boost/any.hpp"
 #include "boost/regex.hpp"
 #include <boost/tokenizer.hpp> 
+#include "boost/lexical_cast.hpp"
 
 #include <vector>
 #include <iostream>
 #include "mmUtility/CmmUtility.h"
+
+#include "mmUtility/hashMap.h"
+#include "ThreadPool.h"
+//#include <thread>
 void testAny();
 void teststr();
+std::vector<int> twoSum(std::vector<int>& nums, int target);
 
 template <class _Arg, class _Result>
 struct unary_function {
@@ -21,9 +27,27 @@ struct unary_function {
 
 void CmmUtility::test()
 {
-    std::cout << "this is test function\n";
+    std::vector<int> nums = { 3,2,4 };
+    std::vector<int> vctRet = twoSum(nums,6);
+
+   /* std::cout << "this is test function\n";
     testAny();
-    teststr();
+    teststr();*/
+
+    ThreadPool pool(3);
+    for (int i=0;i<10;i++)
+    {
+        auto pi = pool.enqueue([i] {
+            std::cout << std::this_thread::get_id() <<"  add a task:" << i << std::endl;
+            });
+    }
+    Sleep(1000);
+    for (int i = 0; i < 10; i++)
+    {
+        auto pi = pool.enqueue([i] {
+            std::cout << std::this_thread::get_id() << "  add a task:" << i << std::endl;
+            });
+    }
 }
 int CmmUtility::splitString(const std::string& strSrc, std::vector<std::string>& vecRet, char c)
 {
@@ -85,7 +109,15 @@ void testAny()
 }
 void teststr()
 {
- 
+    std::string sI = "5";
+    try
+    {
+        int i = boost::lexical_cast<int>(sI);
+    }
+    catch (boost::bad_lexical_cast e)
+    {
+        std::cout << e.what() << std::endl;
+    }
 }
 
 void testFakeFun()
@@ -94,3 +126,44 @@ void testFakeFun()
     int ret = p(3);
     std::cout << ret <<std::endl;
 }
+std::vector<int> twoSum(std::vector<int>& nums, int target)
+{
+    std::multimap<int, int> mapNums;
+    int index = 0;
+    for (int i : nums)
+    {
+        mapNums.insert(std::make_pair(i, index++));
+    }
+    for (int i = 0; i < nums.size(); i++)
+    {
+        int j = target - nums[i];
+        auto itFind = mapNums.find(j);
+        int nSize = mapNums.count(j);
+        for (; nSize > 0; nSize--, itFind++)
+        {
+            if (itFind->second == i)
+                continue;
+            return { i,itFind->second };
+        }
+    }
+    return {};
+}
+
+bool isIsomorphic(std::string s, std::string t) 
+{
+    //÷ª≈–∂œ÷ÿ∏¥
+
+    return true;
+}
+
+
+using namespace std;
+
+class Solution {
+public:
+    bool isMatch(string s, string p) {
+       
+        
+
+    }
+};
