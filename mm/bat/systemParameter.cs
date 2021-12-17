@@ -13,6 +13,7 @@ namespace bat
         public const string strConfigPath = @"..\common_config\system_config.xml";
         public const string strPostPath = @"\source\_posts";
         public const string strDraftPath = @"\source\_drafts";
+        public const string strDeletePath = @"\source\_deletes";
 
         private static SystemParameter _SystemParameter = null;
 

@@ -30,8 +30,8 @@ void shareWorks();
 void multiThread();
 int main()
 {
-   // testCmmUtility();
-    startProcess();
+    testCmmUtility();
+    //startProcess();
     //processWorks();
     //testCmmUtility();
    // multiThread();
@@ -303,7 +303,3 @@ void testHashTable()
         std::cout << sFut.get() << std::endl;
     }
 
-    auto ftest()->int
-    {
-
-    }

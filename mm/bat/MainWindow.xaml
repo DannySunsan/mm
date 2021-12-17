@@ -7,39 +7,45 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="1200">
     <Grid>
-        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="391" Margin="204,47,0,0" VerticalAlignment="Top" Width="869">
+        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="512" Margin="10,47,0,0" VerticalAlignment="Top" Width="1172">
             <TabItem Header="Home">
                 <Grid Background="#FFE5E5E5"/>
 
             </TabItem>
             <TabItem Header="Blog">
                 <Grid Background="#FFE5E5E5">
-                    <TextBox x:Name="tbBlog" HorizontalAlignment="Left" Height="28" Margin="616,79,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="216" UndoLimit="30"/>
-                    <TextBlock x:Name="BlogNameTxt" HorizontalAlignment="Left" Margin="616,52,0,0" TextWrapping="Wrap" Text="BlogName" VerticalAlignment="Top" Height="22" Width="216" TextAlignment="Center"/>
-                    <Button x:Name="newblog" Content="新建Blog" HorizontalAlignment="Left" Height="23" Margin="616,119,0,0" VerticalAlignment="Top" Width="216" Click="OnBnClickNewBlog"/>
-                    <Button x:Name="generate" Content="生成" HorizontalAlignment="Left" Height="23" Margin="616,157,0,0" VerticalAlignment="Top" Width="216"/>
-                    <Button x:Name="localDeploy" Content="本地部署" HorizontalAlignment="Left" Height="23" Margin="616,199,0,0" VerticalAlignment="Top" Width="216"/>
-                    <Button x:Name="netDeploy" Content="网络部署" HorizontalAlignment="Left" Height="23" Margin="616,241,0,0" VerticalAlignment="Top" Width="216"/>
-                    <ListView x:Name="listBlog" HorizontalAlignment="Left" Height="275" Margin="10,52,0,0" VerticalAlignment="Top" Width="600" MouseRightButtonUp="OnMouseRightUpListBlog" ContextMenuOpening="ListBlogContextOp">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="16*"/>
+                        <ColumnDefinition Width="847*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="tbBlog" HorizontalAlignment="Left" Height="28" Margin="600,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="216" UndoLimit="30" Grid.Column="1" 
+                             PreviewKeyDown="tbBlogName_PreviewKeyDown" DataObject.Pasting="TbBlog_Pasting" PreviewTextInput="tbBlogName_PreviewTextInput" TextInput="tbBlogName_TextInput" KeyDown="tbBlogName_KeyDown" KeyUp="tbBlogName_KeyUp" PreviewKeyUp="tbBlogName_PreviewKeyUp" />
+                    <TextBlock x:Name="BlogNameTxt" HorizontalAlignment="Left" Margin="600,52,0,0" TextWrapping="Wrap" Text="BlogName" VerticalAlignment="Top" Height="22" Width="216" TextAlignment="Center" Grid.Column="1"/>
+                    <Button x:Name="newblog" Content="新建Blog" HorizontalAlignment="Left" Height="23" Margin="600,119,0,0" VerticalAlignment="Top" Width="216" Click="OnBnClickNewBlog" Grid.Column="1"/>
+                    <Button x:Name="generate" Content="生成" HorizontalAlignment="Left" Height="23" Margin="600,157,0,0" VerticalAlignment="Top" Width="216" Grid.Column="1"/>
+                    <Button x:Name="localDeploy" Content="本地部署" HorizontalAlignment="Left" Height="23" Margin="600,199,0,0" VerticalAlignment="Top" Width="216" Grid.Column="1"/>
+                    <Button x:Name="netDeploy" Content="网络部署" HorizontalAlignment="Left" Height="23" Margin="600,241,0,0" VerticalAlignment="Top" Width="216" Grid.Column="1"/>
+                    <ListView x:Name="listBlog" HorizontalAlignment="Left" Height="275" Margin="10,52,0,0" VerticalAlignment="Top" 
+                              Width="600" MouseRightButtonUp="OnMouseRightUpListBlog" ContextMenuOpening="ListBlogContextOp" MouseDoubleClick="OnMouseDbClickListBlog" Grid.ColumnSpan="2" SelectionMode="Single">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="名字" Width="400" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Header="状态" Width="50" DisplayMemberBinding="{Binding Status}"/>
                                 <GridViewColumn Header="修改时间" Width="150" DisplayMemberBinding="{Binding ModifyTime}"/>
                             </GridView>
                         </ListView.View>
                         <ListView.ContextMenu>
                             <ContextMenu>
+                                <MenuItem Header = "发布" Click="ListBlog_Pulish_Click"/>
                                 <MenuItem Header = "删除" Click="ListBlog_Delete_Click"/>
                             </ContextMenu>
                         </ListView.ContextMenu>
                     </ListView>
-                    <Button x:Name="reLoad" Content="刷新blog列表" HorizontalAlignment="Left" Height="23" Margin="616,282,0,0" VerticalAlignment="Top" Width="216" Click="onBnClickReloadBlog"/>
+                    <Button x:Name="reLoad" Content="刷新blog列表" HorizontalAlignment="Left" Height="23" Margin="600,282,0,0" VerticalAlignment="Top" Width="216" Click="onBnClickReloadBlog" Grid.Column="1"/>
                 </Grid>
 
             </TabItem>
         </TabControl>
-        <DockPanel x:Name="LFPanel" HorizontalAlignment="Left" Height="512" LastChildFill="False" Margin="10,47,0,0" VerticalAlignment="Top" Width="189"/>
-        <DockPanel x:Name="DWPanel" HorizontalAlignment="Left" Height="116" LastChildFill="False" Margin="204,443,0,0" VerticalAlignment="Top" Width="869"/>
         <Menu x:Name="mainMenu" HorizontalAlignment="Left" Height="32" Margin="10,10,0,0" VerticalAlignment="Top" Width="1172"/>
 
     </Grid>

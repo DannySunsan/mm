@@ -13,11 +13,13 @@ namespace bat
         private string name;
         private DateTime crateTime;
         private DateTime modifyTime;
-        public struct ProcessParameter
+        public enum eSTATUS
         {
-            public string strBlogName;
-
+            post,
+            draft,
+            delete
         };
+        eSTATUS status;
         public string Name
         {
             set => name = value;
@@ -33,26 +35,43 @@ namespace bat
             set => modifyTime = value;
             get { return modifyTime; }
         }
-        public Blog(FileInfo file)
+        public eSTATUS Status
+        {
+            set => status = value;
+            get { return status; }
+        }
+        public Blog(FileInfo file, eSTATUS stat)
         {
             Name = file.Name;
             CreateTime = file.CreationTime;
             ModifyTime = file.LastWriteTime;
+            status = stat;
         }
+      
+    }
 
-        public bool NewBlog(string strName)
+    public class BlogManagement
+    {
+        static public bool NewBlog(string strName)
         {
-            return Process(strName);
+            string param = strName + " 1";
+            return Process(param);
 
         }
 
-        public bool deleteBlog(string strName)
+        static public bool DeleteBlog(string strName)
         {
-            return Process(strName);
-
+            string param = strName + " 6";
+            return Process(param);
         }
 
-        public bool Process(string param)
+        static public bool PublishBlog(string strName)
+        {
+            string param = strName + " 2";
+            return Process(param);
+        }
+
+        static public bool Process(string param)
         {
             Process proc = null;
             try
@@ -64,7 +83,7 @@ namespace bat
                 proc.StartInfo.Arguments = sDisk + " " + blog + " " + param;
                 proc.StartInfo.CreateNoWindow = true;
                 proc.Start();
-                proc.WaitForExit();
+                /// proc.WaitForExit();
                 return true;
             }
             catch (Exception ex)

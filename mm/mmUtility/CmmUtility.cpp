@@ -14,6 +14,30 @@ void testAny();
 void teststr();
 std::vector<int> twoSum(std::vector<int>& nums, int target);
 
+namespace std {
+    class Solution {
+    public:
+        vector<int> getLeastNumbers(vector<int>& arr, int k) {
+            //c++´ó¶¥¶Ñ
+            //make_heap(arr.begin(), arr.end(), less<int>());
+            //c++Ð¡¶¥¶Ñ
+            //make_heap(arr.begin(), arr.end(), greater<int>());
+            //pop_heap(arr.begin(), arr.end());
+
+            priority_queue<int, vector<int>,greater<int>> pq;
+            for (auto a : arr)
+                pq.push(a);
+
+            vector<int> vecRet;
+            for (int i = 0; i < k; i++)
+            {
+                vecRet.emplace_back(pq.top());
+                pq.pop();               
+            }
+            return vecRet;
+        }
+    };
+}
 template <class _Arg, class _Result>
 struct unary_function {
     typedef _Arg argument_type;
@@ -25,16 +49,25 @@ struct unary_function {
     }
 };
 
+bool hasA()
+{
+    return true;
+}
 void CmmUtility::test()
 {
-    std::vector<int> nums = { 3,2,4 };
-    std::vector<int> vctRet = twoSum(nums,6);
-
+    std::vector<int> nums = { 3,2,4,7,2,1 };
+    std::vector<int> vctRet/* = twoSum(nums,6)*/;
+    if (1 || hasA())
+    {
+        
+    }
    /* std::cout << "this is test function\n";
     testAny();
     teststr();*/
+   /* std::Solution so;
+    vctRet = so.getLeastNumbers(nums,2);*/
 
-    ThreadPool pool(3);
+   /* ThreadPool pool(3);
     for (int i=0;i<10;i++)
     {
         auto pi = pool.enqueue([i] {
@@ -47,7 +80,7 @@ void CmmUtility::test()
         auto pi = pool.enqueue([i] {
             std::cout << std::this_thread::get_id() << "  add a task:" << i << std::endl;
             });
-    }
+    }*/
 }
 int CmmUtility::splitString(const std::string& strSrc, std::vector<std::string>& vecRet, char c)
 {
@@ -157,13 +190,3 @@ bool isIsomorphic(std::string s, std::string t)
 }
 
 
-using namespace std;
-
-class Solution {
-public:
-    bool isMatch(string s, string p) {
-       
-        
-
-    }
-};
