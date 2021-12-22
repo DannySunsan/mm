@@ -4,6 +4,7 @@ import search_param_file as spf
 import os
 import util
 from config_proxy import configProxy
+from sampleUI import MainWin
 def showTips():
     print('''
     help                帮助
@@ -14,9 +15,21 @@ def showTips():
 
         
 
-if __name__ == "__main__":  
+if __name__ == "__main__":
+    arg = ''
+    if len(sys.argv)>1:
+        arg = sys.argv[1]
     config = configProxy()
-    path  = config.getConfig('path')
+    win = False
+    path = ""
+    if arg == 'w' or arg == 'W':
+        win = True
+    if not win:
+        showTips()  
+        path  = config.getConfig('path')
+    else:
+        MainWin(config)
+
     while 1:            
         #path = r"D:\TFS\UIMRIS\BRANCHES\uMR_MAIN\UIH\appdata\MR\Config"
         print(f"当前路径{path}")        
@@ -32,7 +45,7 @@ if __name__ == "__main__":
             while 1:
                 ans = input("查询结束，是否保存？(Y/N)：")
                 if  ans == 'Y' or ans =='y':
-                    util.saveLists(doc,input("请选择保存位置："))
+                    util.saveLists(doc,param,input("请选择保存位置："))
                     break
                 elif ans == 'N' or ans =='n':
                     break            

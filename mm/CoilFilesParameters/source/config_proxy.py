@@ -5,14 +5,14 @@ class configProxy:
     __config = {}
     def __init__(self):
         f = open(self.__path, mode='r+',encoding='utf-8')
-        cont = f.read()        
+        input = f.read()        
         f.close()
-        self.__config =  yaml.load(cont)
+        self.__config =  yaml.load(input, Loader=yaml.FullLoader)
     def __del__(self):
          if self.__config.get("autosave"):
             self.saveConfig()
     def saveConfig(self):
-        fw = open(self.__path,'w+',encoding='utf-8')
+        fw = open(self.__path,mode='w+',encoding='utf-8')
         yaml.dump(self.__config,fw)
         fw.close()
 

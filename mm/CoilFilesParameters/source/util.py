@@ -13,11 +13,11 @@ def changePath(config:configProxy):
         config.setConfig('path',pathNew)
         print(f"路径已修改，当前路径{pathNew}")
 
-def fillHead(excel:wte.excelProxy):
+def fillHead(excel:wte.excelProxy,param:str):
     excel.setValue(1,1,"CoilName")
     excel.setValue(1,2,"Scope")
     excel.setValue(1,3,"Source")
-    excel.setValue(1,4,"value")
+    excel.setValue(1,4,param)
     excel.setColWidth('A',30)
     excel.setColWidth('B',30)
     excel.setColWidth('C',50)
@@ -52,21 +52,23 @@ def getFileName():
     name = "\\{}{}{}{}{}.xlsx".format(time.gmtime().tm_year,time.gmtime().tm_mon,
         time.gmtime().tm_mday,time.gmtime().tm_hour,time.gmtime().tm_min,time.gmtime().tm_sec)  
     return name
-def saveLists(doc:dict,savePath:str):
+
+def saveLists(doc:dict,param:str,savePath:str):
     if doc == None:
         print("查询结果为空，不需要保存")
         return 
     if not os.path.exists(savePath):
-        savePath = f"c:\\"        
+        savePath = f"./output/"        
 
     excel = wte.excelProxy()
     for field in listField:
         excel.addSheet(field)
-        fillHead(excel)
+        fillHead(excel,param)
         coilParam = doc.get(field)
         row = 2
         for key,value in coilParam.items():
             row = fillCoil(excel,key,value,row) 
     savePath += "\\"+getFileName()
     excel.save(savePath)         
-    print(f"文件已保存在：{savePath}")       
+    print(f"文件已保存在：{savePath}") 
+    return savePath      

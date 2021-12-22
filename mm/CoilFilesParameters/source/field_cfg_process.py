@@ -3,6 +3,7 @@ import shutil
 import stat
 import search_param_file as spf
 import progressBar as pb
+from tkinter import *
 source_path = "../appdata/MR/Config/"
 out_path = "./output/Config/"
 
@@ -48,14 +49,14 @@ def process(src:str,param:str):
         src = source_path
     else:
         src = src+"\\"
-    if os.path.exists(out_path)==False :
-        os.makedirs(out_path)
+    #if os.path.exists(out_path)==False :
+    #   os.makedirs(out_path)
 
     i = 1
     lstFields = {}
     for key in field_type.keys():       
         lstCoil = {}         
-        progress.setProgress(i+1)               
+        progress.setProgress(i+1)         
         step = 25//len(field_type[key])
         if step < 1:
             step = 1   
