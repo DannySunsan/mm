@@ -9,8 +9,7 @@ class configProxy:
         f.close()
         self.__config =  yaml.load(input, Loader=yaml.FullLoader)
     def __del__(self):
-         if self.__config.get("autosave"):
-            self.saveConfig()
+         pass
     def saveConfig(self):
         fw = open(self.__path,mode='w+',encoding='utf-8')
         yaml.dump(self.__config,fw)
