@@ -1,58 +1,31 @@
-#include<string>
-#include<boost/asio.hpp>
-#include"mmUtility/TCPThreadStruct.h"
-#include "mmTcpServerThread.h"
-#include<iostream>
-
-mmTcpServerThread::mmTcpServerThread(unsigned short iPort):
-    m_service(),
-    m_tcpSocket(m_service), 
-    m_acceptor(m_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), iPort))
+#include "export.h"
+#include "mmUtility\tcp\mmTcpServerThread.h"
+#include "boost\thread.hpp"
+mmTcpServerThread::mmTcpServerThread(unsigned short usPort)
+    :m_server(usPort)
 {
-    m_eStatus = STATUS_OK;
-    m_service.run();
+    start();
 }
+
 mmTcpServerThread::~mmTcpServerThread()
 {
 }
-void mmTcpServerThread::accept() 
-{
-    m_acceptor.async_accept(m_tcpSocket, [this](const boost::system::error_code& ec)
-        {
-        handle_accept(ec);
-        });
-    std::cout << "accept()" << std::endl;
 
+void mmTcpServerThread::start()
+{
+   boost::thread([this]() { 
+        
+       m_server.run();
+        
+        });  
 }
 
-void mmTcpServerThread::handle_accept(const boost::system::error_code& ec) 
+void mmTcpServerThread::stop()
 {
-    if (ec) {
-        return;
-    }
-    read();
-    std::cout << "start another accept()" << std::endl;
-    accept();
+    m_server.stop();
 }
 
-void mmTcpServerThread::read() 
+void mmTcpServerThread::restart()
 {
-    boost::asio::async_read(m_tcpSocket, boost::asio::buffer(str, 1024), [this](boost::system::error_code ec, std::size_t) 
-        {
-        if (!ec) {
-            write();
-            std::cout << "server received: " << str << std::endl; 
-        }
-        read();
-        });
-}
-
-void mmTcpServerThread::write() 
-{
-    boost::asio::async_write(m_tcpSocket, boost::asio::buffer("ok", 2), [this](boost::system::error_code ec, std::size_t) 
-        {
-        if (!ec) {
-            std::cout << "server recalled: " << str << " ok" << std::endl; 
-        }
-        });
+    m_server.restart();
 }

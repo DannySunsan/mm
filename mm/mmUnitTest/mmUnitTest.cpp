@@ -1,6 +1,6 @@
 ﻿// mmUnitTest.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
 //
-#include<Windows.h>
+//#include<Windows.h>
 #include <iostream>
 #include "mmUtility/util.h"
 #include<vector>
@@ -13,6 +13,15 @@
 #include <future>
 #include <functional>
 #include <thread>
+
+#pragma pack(1)
+struct Cell
+{
+    int i;
+    char p;
+    double d;
+};
+#pragma pack()
 
 typedef int(*func)();
 typedef int(*func2)(std::string& strFile);
@@ -30,7 +39,22 @@ void shareWorks();
 void multiThread();
 int main()
 {
-    testCmmUtility();
+    Cell c;
+    c.i = 4;
+    c.p = 1;
+    c.d = 8.;
+    int nLen = sizeof(Cell);
+    BYTE* b = new BYTE[nLen];
+    memset(b,0b00000000,nLen);
+    *b = 4;
+    *(b + 4) = 1;
+    *(b + 8) = 8;
+   
+
+
+    Cell n = *(Cell*)(b);
+    cout << n.i << n.p << n.d;
+    //testCmmUtility();
     //startProcess();
     //processWorks();
     //testCmmUtility();

@@ -13,18 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="tcp">
+      <UniqueIdentifier>{195c8216-4129-49bf-a6c9-13fffda2cee7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tcp\head">
+      <UniqueIdentifier>{4a3d6d39-cfe8-420e-a01f-b4b574519505}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tcp\src">
+      <UniqueIdentifier>{97170d15-549f-48d5-af2e-407ebfa1e24d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\mmUtility\CmmUtility.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\mmUtility\util.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Actor.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ThreadPool.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Singleton.h">
@@ -39,27 +42,42 @@
     <ClInclude Include="mm_define.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="mmTcpClientThread.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="mmTcpServerThread.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\mmUtility\TCPThread.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\mmUtility\hashtable.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\mmUtility\hashMap.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="longestDup.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\mmUtility\ThreadPool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\mmUtility\tcp\DataBuffer.h">
+      <Filter>tcp\head</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\mmUtility\tcp\mmTcpClient.h">
+      <Filter>tcp\head</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\mmUtility\tcp\mmTcpClientThread.h">
+      <Filter>tcp\head</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\mmUtility\tcp\mmTcpConnection.h">
+      <Filter>tcp\head</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\mmUtility\tcp\mmTcpServer.h">
+      <Filter>tcp\head</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\mmUtility\tcp\mmTcpServerThread.h">
+      <Filter>tcp\head</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\mmUtility\tcp\TCPThreadStruct.h">
+      <Filter>tcp\head</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CmmUtility.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Actor.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Singleton.cpp">
@@ -72,6 +90,18 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="mmTcpServerThread.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="mmTcpServer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="mmTcpConnection.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="mmTcpClient.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DataBuffer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
