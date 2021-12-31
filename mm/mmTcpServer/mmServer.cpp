@@ -3,11 +3,10 @@
 
 #include <iostream>
 #include "mmUtility/util.h"
-
+constexpr int PORT = 443;
 int main()
 {
-    mmTcpServerThread server(443);
-
+    mmTcpServerThread server(PORT);
     for (;;);
 }
 

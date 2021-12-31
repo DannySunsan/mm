@@ -16,7 +16,6 @@
     <ClInclude Include="..\..\include\mmUtility\hashtable.h" />
     <ClInclude Include="..\..\include\mmUtility\tcp\DataBuffer.h" />
     <ClInclude Include="..\..\include\mmUtility\tcp\mmTcpClient.h" />
-    <ClInclude Include="..\..\include\mmUtility\tcp\mmTcpClientThread.h" />
     <ClInclude Include="..\..\include\mmUtility\tcp\mmTcpConnection.h" />
     <ClInclude Include="..\..\include\mmUtility\tcp\mmTcpServer.h" />
     <ClInclude Include="..\..\include\mmUtility\tcp\mmTcpServerThread.h" />
@@ -33,9 +32,6 @@
     <ClCompile Include="CmmUtility.cpp" />
     <ClCompile Include="DataBuffer.cpp" />
     <ClCompile Include="mmTcpClient.cpp" />
-    <ClCompile Include="mmTcpClientThread.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="mmTcpConnection.cpp" />
     <ClCompile Include="mmTcpServer.cpp" />
     <ClCompile Include="RefCounterPtr.cpp" />

@@ -60,9 +60,6 @@
     <ClInclude Include="..\..\include\mmUtility\tcp\mmTcpClient.h">
       <Filter>tcp\head</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\mmUtility\tcp\mmTcpClientThread.h">
-      <Filter>tcp\head</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\mmUtility\tcp\mmTcpConnection.h">
       <Filter>tcp\head</Filter>
     </ClInclude>
@@ -84,9 +81,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="RefCounterPtr.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="mmTcpClientThread.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="mmTcpServerThread.cpp">

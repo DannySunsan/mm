@@ -14,6 +14,6 @@ public:
     void stop();
     void restart();
 private:
-    //boost::asio::ip::tcp::acceptor acceptor_;
-   // boost::asio::io_context m_io_context;
+    boost::asio::io_context m_io_context;
+    boost::asio::ip::tcp::acceptor acceptor_;  
 };

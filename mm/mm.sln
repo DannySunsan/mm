@@ -19,6 +19,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bat", "bat\bat.csproj", "{3337BB27-3F4C-444C-A712-94E982C2AE46}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mmTcpServer", "mmTcpServer\mmTcpServer.vcxproj", "{C6CF1E57-58D1-4643-BE96-28B2AE204C46}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4B53FDF3-5D46-4C64-B419-E943B08BFBB8} = {4B53FDF3-5D46-4C64-B419-E943B08BFBB8}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

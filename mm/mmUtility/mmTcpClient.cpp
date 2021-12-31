@@ -1,28 +1,33 @@
+#include "export.h"
 #include "mmUtility\tcp\mmTcpClient.h"
-
-mmTcpClient::mmTcpClient(boost::asio::ip::tcp::endpoint ep)
-    :m_ep(ep)
+#include <iostream>
+mmTcpClient::mmTcpClient()
 {
 
 }
-void mmTcpClient::connect()
+void mmTcpClient::connect(const char* ip, unsigned short port)
 {
-
-}
-void mmTcpClient::send()
-{
-    mmTcpConnection::pointer new_connection =
-        mmTcpConnection::create(m_io_context);
-
-    
-}
-
-void mmTcpClient::handle_send(mmTcpConnection::pointer new_connection,
-    const boost::system::error_code& error)
-{
-    if (!error)
+    if (client.connect(boost::asio::ip::tcp::endpoint(boost::asio::ip::make_address(ip), port)))
     {
-        
+        std::cout << "connect to :" << ip << "ok\n";
     }
+    else
+    {
+        std::cout << "connect to :" << ip << "failure\n";
+    }
+}
 
+void mmTcpClient::send(char* s, int len)
+{
+    client.send(s,len);
+}
+
+void mmTcpClient::send(const char* s)
+{
+    client.send(s);
+}
+
+void mmTcpClient::receive()
+{
+    client.receive();
 }

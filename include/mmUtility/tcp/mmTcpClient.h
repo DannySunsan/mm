@@ -1,15 +1,13 @@
 #pragma once
-#include "boost\asio.hpp"
 #include "mmTcpConnection.h"
-class mmTcpClient
+class MUTILITY_DLLEXPORT mmTcpClient
 {
 public:
-    mmTcpClient(boost::asio::ip::tcp::endpoint ep);
-    void connect();
-    void send();
-    void handle_send(mmTcpConnection::pointer new_connection,
-        const boost::system::error_code& error);
+    mmTcpClient();
+    void connect(const char * ip,unsigned short port);
+    void send(char * s,int len);
+    void send(const char* s);
+    void receive();
 private:
-    boost::asio::ip::tcp::endpoint m_ep;
-    boost::asio::io_context m_io_context;
+    mmTcpClientConnection client;
 };

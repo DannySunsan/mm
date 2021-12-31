@@ -9,6 +9,8 @@ public:
     void start();
     void stop();
     void restart();
+protected:
+    void handleEvent();
 private:
     mmTcpServer m_server;
 };
