@@ -13,15 +13,42 @@
 #include <future>
 #include <functional>
 #include <thread>
-
-
-int main()
+#include <fstream>
+#include "mmClientTcpProxy.h"
+void client()
 {
-    mmTcpClient client1;
-    client1.connect("10.9.81.246",443);
+    mmClientTcpProxy* proxy = new mmClientTcpProxy();
+    mmTcpClient client1(proxy);
+    client1.connect("10.9.81.246", 443);
     std::string sen;
     while (std::cin >> sen)
     {
-        client1.send(sen.c_str());
+        client1.send((char*)sen.data(), sen.length());
     }
+    if (proxy != nullptr)
+    {
+        delete proxy;
+        proxy = nullptr;
+    }
+}
+
+class c
+{
+    union 
+    {
+        int i;
+        double d;
+        char s[13];
+    } ;
+public:
+    c() 
+    {
+        memset(s,0x00000001,13);
+    }
+};
+#include <shellapi.h>
+#include <stdio.h>
+int main()
+{
+    client();
 }

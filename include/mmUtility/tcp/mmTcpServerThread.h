@@ -3,15 +3,12 @@
 class MUTILITY_DLLEXPORT mmTcpServerThread
 {
 public:
-    mmTcpServerThread(unsigned short iPort);
+    mmTcpServerThread(unsigned short iPort, TCPProxy* proxy);
     ~mmTcpServerThread();
-public:
-    void start();
-    void stop();
-    void restart();
-protected:
-    void handleEvent();
+
+    void write(std::string ip,char* s, unsigned int len);
 private:
-    mmTcpServer m_server;
+    void start();
+    mmTcpServer server;
 };
 

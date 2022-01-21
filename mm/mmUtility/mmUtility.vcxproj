@@ -14,15 +14,18 @@
     <ClInclude Include="..\..\include\mmUtility\CmmUtility.h" />
     <ClInclude Include="..\..\include\mmUtility\hashMap.h" />
     <ClInclude Include="..\..\include\mmUtility\hashtable.h" />
+    <ClInclude Include="..\..\include\mmUtility\tcp\connectMsg.h" />
     <ClInclude Include="..\..\include\mmUtility\tcp\DataBuffer.h" />
     <ClInclude Include="..\..\include\mmUtility\tcp\mmTcpClient.h" />
     <ClInclude Include="..\..\include\mmUtility\tcp\mmTcpConnection.h" />
+    <ClInclude Include="..\..\include\mmUtility\tcp\mmTcpProxy.h" />
     <ClInclude Include="..\..\include\mmUtility\tcp\mmTcpServer.h" />
     <ClInclude Include="..\..\include\mmUtility\tcp\mmTcpServerThread.h" />
     <ClInclude Include="..\..\include\mmUtility\tcp\TCPThreadStruct.h" />
     <ClInclude Include="..\..\include\mmUtility\ThreadPool.h" />
     <ClInclude Include="..\..\include\mmUtility\util.h" />
     <ClInclude Include="longestDup.h" />
+    <ClInclude Include="mmTcpServerTransaction.h" />
     <ClInclude Include="mm_define.h" />
     <ClInclude Include="RefCounterPtr.h" />
     <ClInclude Include="Singleton.h" />
@@ -30,6 +33,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CmmUtility.cpp" />
+    <ClCompile Include="connectMsg.cpp" />
     <ClCompile Include="DataBuffer.cpp" />
     <ClCompile Include="mmTcpClient.cpp" />
     <ClCompile Include="mmTcpConnection.cpp" />

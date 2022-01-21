@@ -3,20 +3,58 @@
 
 #include <iostream>
 #include "mmUtility/util.h"
-constexpr int PORT = 443;
-int main()
+#include "mmServerTcpProxy.h"
+constexpr int PORT = 443;//receive
+void get_input(std::promise<int>& pi)
 {
-    mmTcpServerThread server(PORT);
-    for (;;);
+    int x;
+    std::cout << "Enter an inter va==\n";
+    std::cin.exceptions(std::ios::failbit);
+
+    try
+    {
+        std::cin >> x;
+        pi.set_value(x); //set_value会将共享标志位置为ready
+    }
+    catch (std::exception&)
+    {
+        pi.set_exception(std::current_exception());
+    }
 }
 
-// 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
-// 调试程序: F5 或调试 >“开始调试”菜单
+void printSth(std::shared_future<int>& fut)
+{
+    try
+    {
+        int x = fut.get();//在共享标志位置为ready之前会被阻塞
+        std::cout << x << std::endl;
+    }
+    catch (std::exception& e)
+    {
+        std::cout << "exception" << e.what() << std::endl;
+    }
+}
 
-// 入门使用技巧: 
-//   1. 使用解决方案资源管理器窗口添加/管理文件
-//   2. 使用团队资源管理器窗口连接到源代码管理
-//   3. 使用输出窗口查看生成输出和其他消息
-//   4. 使用错误列表窗口查看错误
-//   5. 转到“项目”>“添加新项”以创建新的代码文件，或转到“项目”>“添加现有项”以将现有代码文件添加到项目
-//   6. 将来，若要再次打开此项目，请转到“文件”>“打开”>“项目”并选择 .sln 文件
+void startProcess()
+{
+    std::promise<int> pi;
+    std::shared_future<int> fut;
+    bool ret = fut.valid();
+    fut = pi.get_future().share();
+    std::cout << fut.valid() << std::endl;
+    std::thread th1(get_input, std::ref(pi));
+    std::thread th2(printSth, std::ref(fut));
+
+    th1.join();
+    th2.join();
+    std::promise<int> pi2;
+    pi.swap(pi2);
+    std::cout << fut.get() << std::endl;
+}
+
+int main()
+{
+    mmServerTcpProxy* pro = new mmServerTcpProxy();
+    pro->initServer(PORT);
+    for (;;);
+}

@@ -1,5 +1,5 @@
 #pragma once
-
+#include <memory>
 enum eTcpStatus
 {
     STATUS_UNPREPARED = -1,
@@ -15,9 +15,34 @@ enum eDataType
     estring,
     ewstring
 };
-#pragma pack(1)
-struct
-{
 
+enum eStateReceive
+{
+    start = 0,
+    receiving,
+    end
+};
+#pragma pack(1)
+typedef struct
+{
+    char s_ip[32];
+    int16_t i_port;
+    char s_cmd[128];
+    unsigned int len;
+}TCPMsgHead;
+typedef struct
+{
+    TCPMsgHead head;
+    char* s;
+}TCPData;
+struct DataFormat
+{
+    eStateReceive state;
+    TCPMsgHead head;
+    DataFormat()
+    {
+        state = start;
+        memset(&head,0,sizeof(TCPMsgHead));
+    }
 };
 #pragma pack()

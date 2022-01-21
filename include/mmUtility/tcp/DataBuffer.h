@@ -5,12 +5,12 @@ class DataBuffer
 public:
     DataBuffer();
     ~DataBuffer();
-    DataBuffer(const char* s, int nlen);
+    DataBuffer(char* s, unsigned int nlen);
     DataBuffer(const DataBuffer&);
-    int Len() const;
+    unsigned int Len() const;
     void clear();
-    void push(const char*, int nlen);
-    DataBuffer pop(int nlen);
+    void push(char*, unsigned int nlen);
+    unsigned int pop(unsigned int nlen);
     int reserve() const;
 
     DataBuffer operator<<(const std::string str);
@@ -22,6 +22,6 @@ public:
     char* head() const;   
 private:
     char* _p;
-    int _nlen;
-    int _nHead;
+    unsigned int _nlen;
+    unsigned int _nHead;
 };

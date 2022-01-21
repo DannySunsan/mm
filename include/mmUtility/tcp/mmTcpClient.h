@@ -3,11 +3,10 @@
 class MUTILITY_DLLEXPORT mmTcpClient
 {
 public:
-    mmTcpClient();
+    mmTcpClient(TCPProxy* proxy);
     void connect(const char * ip,unsigned short port);
-    void send(char * s,int len);
-    void send(const char* s);
-    void receive();
+    void init();
+    void send(char* s, unsigned int len);
 private:
     mmTcpClientConnection client;
 };

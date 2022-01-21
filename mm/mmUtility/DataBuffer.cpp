@@ -11,16 +11,22 @@ DataBuffer::~DataBuffer()
 {
     clear();
 }
-DataBuffer::DataBuffer(const char* s, int nlen)
+DataBuffer::DataBuffer(char* s, unsigned int nlen):
+    _p(nullptr),
+    _nlen(0),
+    _nHead(0)
 {
     push(s, nlen);
 }
-DataBuffer::DataBuffer(const DataBuffer& buf)
+DataBuffer::DataBuffer(const DataBuffer& buf):
+    _p(nullptr),
+    _nlen(0),
+    _nHead(0)
 {
-    this->push(buf.begin(), buf.Len());
+    push(buf.begin(), buf.Len());
 }
 
-int DataBuffer::Len() const
+unsigned int DataBuffer::Len() const
 {
     return _nlen;
 }
@@ -42,7 +48,7 @@ char* DataBuffer::head() const
 }
 int DataBuffer::reserve() const
 {
-    return -_nHead + _nlen;
+    return _nlen -_nHead;
 }
 void DataBuffer::clear()
 {
@@ -56,7 +62,7 @@ void DataBuffer::clear()
 }
 DataBuffer DataBuffer::operator<<(const std::string str)
 {   
-    return DataBuffer(str.data(), str.length());
+    return DataBuffer((char*)str.data(), str.length());
 }
 
 DataBuffer DataBuffer::operator=(const DataBuffer& buf)
@@ -65,27 +71,35 @@ DataBuffer DataBuffer::operator=(const DataBuffer& buf)
     return DataBuffer(buf.begin(), buf.Len());
 }
 
-void DataBuffer::push(const char* s, int nlen)
+void DataBuffer::push(char* s, unsigned int nlen)
 {
-    size_t newSize = nlen + _nlen;
-    char* p = (char*)realloc(_p , newSize);
-    if (p == nullptr)
-        return;
-    _p = p;
-    memcpy(last(), s, nlen);
-}
-
-DataBuffer DataBuffer::pop(int nlen)
-{
-    int nReserve = reserve();
-    if (nlen <= nReserve)
+    unsigned int newSize = nlen + _nlen;
+    if (_p == nullptr)
     {
-        _nHead += nlen;
-        return DataBuffer(head(), nlen);
+        _p = (char*)malloc(newSize);
     }
     else
     {
-        _nHead += nReserve;
-        return DataBuffer(head(), nReserve);
+        char* p = (char*)realloc(_p, newSize);
+        if (p == nullptr)
+            return;
+        _p = p;
     }
+    if (_p == nullptr)
+        return;
+   
+    memcpy(last(), s, nlen);
+    _nlen = newSize;
+}
+
+unsigned int DataBuffer::pop(unsigned int nlen)
+{
+    unsigned int nReserve = reserve();
+    int nPop = nlen;
+    if (nPop > nReserve)
+    {
+        nPop = nReserve;
+    }
+    _nHead += nPop;
+    return nPop;
 }

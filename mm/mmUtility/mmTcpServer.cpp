@@ -1,10 +1,15 @@
 #include "mmUtility\tcp\mmTcpServer.h"
 #include <iostream>
-mmTcpServer::mmTcpServer(unsigned short usPort)
-    :acceptor_(m_io_context, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), usPort))
+#include "boost\thread.hpp"
+#include "boost\function.hpp"
+mmTcpServer::mmTcpServer(unsigned short usPort,TCPProxy* proxy)
+    :m_proxy(proxy),acceptor_(m_io_context, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), usPort))
 {
-    //acceptor_.bind((m_io_context, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), usPort)));   
     listen();
+}
+mmTcpServer::~mmTcpServer()
+{
+    stop();
 }
 void mmTcpServer::listen()
 {
@@ -14,7 +19,6 @@ void mmTcpServer::listen()
 
 void mmTcpServer::run()
 {
-    std::cout << acceptor_.local_endpoint().address().to_string() << ":" << acceptor_.local_endpoint().port() << std::endl;
     m_io_context.run();
 }
 void mmTcpServer::stop()
@@ -29,22 +33,26 @@ void mmTcpServer::restart()
 
 void mmTcpServer::start_accept()
 {
-    mmTcpConnection::pointer new_connection =
-        mmTcpConnection::create(m_io_context);
+    mmTcpServerConnection::pointer new_connection =
+        mmTcpServerConnection::create(m_io_context, m_proxy);
 
     acceptor_.async_accept(new_connection->socket(),
         boost::bind(&mmTcpServer::handle_accept, this, new_connection,
             boost::asio::placeholders::error));
 }
 
-void mmTcpServer::handle_accept(mmTcpConnection::pointer new_connection,
+void mmTcpServer::handle_accept(mmTcpServerConnection::pointer new_connection,
     const boost::system::error_code& error)
 {
     if (!error)
     {
-        char s[] = "hello";
-        new_connection->write(s,sizeof(s));
+        m_Connections.add(new_connection->socket().remote_endpoint().address().to_string(), new_connection);
+        std::cout << acceptor_.local_endpoint().address().to_string() << ":" << acceptor_.local_endpoint().port() << std::endl;
     }
-
-    start_accept();
 }
+
+mmTcpServerConnection::pointer mmTcpServer::getConnection(std::string ip)
+{
+    return m_Connections[ip];
+}
+

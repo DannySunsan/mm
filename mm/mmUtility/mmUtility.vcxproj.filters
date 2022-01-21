@@ -72,6 +72,15 @@
     <ClInclude Include="..\..\include\mmUtility\tcp\TCPThreadStruct.h">
       <Filter>tcp\head</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\mmUtility\tcp\connectMsg.h">
+      <Filter>tcp\head</Filter>
+    </ClInclude>
+    <ClInclude Include="mmTcpServerTransaction.h">
+      <Filter>tcp\head</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\mmUtility\tcp\mmTcpProxy.h">
+      <Filter>tcp\head</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CmmUtility.cpp">
@@ -97,6 +106,9 @@
     </ClCompile>
     <ClCompile Include="DataBuffer.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="connectMsg.cpp">
+      <Filter>tcp\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

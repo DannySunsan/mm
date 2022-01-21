@@ -1,31 +1,34 @@
 #include "export.h"
 #include "mmUtility\tcp\mmTcpServerThread.h"
 #include "boost\thread.hpp"
-mmTcpServerThread::mmTcpServerThread(unsigned short usPort)
-    :m_server(usPort)
+mmTcpServerThread::mmTcpServerThread(unsigned short usPort, TCPProxy* proxy)
+    :server(usPort,proxy)
 {
     start();
 }
 
 mmTcpServerThread::~mmTcpServerThread()
 {
+    server.stop();
 }
 
 void mmTcpServerThread::start()
 {
    boost::thread([this]() { 
         
-       m_server.run();
+       server.run();
         
-        });  
+        }); 
+ /*  boost::thread([this]() {
+       for (;;)
+       {
+           server.start_accept();
+       }      
+       });*/
 }
 
-void mmTcpServerThread::stop()
+void mmTcpServerThread::write(std::string ip, char* s, unsigned int len)
 {
-    m_server.stop();
-}
 
-void mmTcpServerThread::restart()
-{
-    m_server.restart();
+    server.getConnection(ip)->write( s, len);
 }
