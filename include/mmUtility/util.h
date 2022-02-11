@@ -2,7 +2,7 @@
 #include "CmmUtility.h"
 #include "hashtable.h"
 #include "tcp\mmTcpClient.h"
-#include "tcp\mmTcpServerThread.h"
+#include "tcp\mmTcpServerMgn.h"
 #ifndef MDebug
 #pragma comment(lib,"mmUtility.lib")
 #else

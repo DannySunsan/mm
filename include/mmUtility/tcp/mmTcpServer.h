@@ -1,26 +1,25 @@
 #pragma once
 #include "boost\asio.hpp"
-#include "connectMsg.h"
-
-class mmTcpServer
+#include "connectMgn.h"
+#include "mmTcpProxy.h"
+class mmTcpServer:public std::unique_ptr<mmTcpServer>
 {
 public:  
-    mmTcpServer(unsigned short usPort, TCPProxy* proxy);
+    typedef std::unique_ptr<mmTcpServer> pointer;
+    mmTcpServer(boost::asio::io_context& io_context,
+        const boost::asio::ip::tcp::endpoint& endpoint,
+        TCPProxy* m_proxy);
     virtual ~mmTcpServer();
     void start_accept();
-    void handle_accept(mmTcpServerConnection::pointer new_connection,
-        const boost::system::error_code& error);
-    virtual void listen();
-
-    virtual void run();
     virtual void stop();
-    virtual void restart();
-    virtual mmTcpServerConnection::pointer getConnection(std::string ip);
+    virtual void send(std::string ip, char* s, unsigned int len);
+    void broadcast(char* s, unsigned int len);
+    void setProxy(TCPProxy* proxy);
 protected:
     mmTcpServer() = default;
-private:
-    boost::asio::io_context m_io_context;
-    boost::asio::ip::tcp::acceptor acceptor_;  
-    connectMsg m_Connections;
+private:     
+    boost::asio::ip::tcp::acceptor m_acceptor;
+    connectMgn m_connectMgn;
     TCPProxy* m_proxy;
+    bool m_bStop;
 };

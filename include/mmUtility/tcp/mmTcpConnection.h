@@ -9,8 +9,9 @@
 #include <mutex>
 #include "TCPThreadStruct.h"
 #include "mmTcpProxy.h"
-typedef void(*FUNCRETURN)(char*, unsigned int);
 
+class connectMgn;
+class mmTcpServerConnection;
 
 class mmConnectionData
 {
@@ -29,50 +30,27 @@ protected:
     DataBuffer sendBuf;
     boost::array<char, 1024> cache;
     DataFormat _fmt;
-    TCPProxy* n_proxy;
+    TCPProxy* m_proxy;
 };
 class mmTcpClientConnection: public mmConnectionData
 {
 public:
     mmTcpClientConnection(TCPProxy* proxy);
 
-    bool connect(boost::asio::ip::tcp::endpoint endp);
+    void connect(const char* ip, unsigned short port);
     void send(char* s, unsigned int len);
     void read();
-
-    void sync_send(char* s, unsigned int len);
-    void sync_send(const char* s);
-    void sync_read();
     boost::asio::ip::tcp::socket& socket() {
         return socket_;
     }
+    void close();
 private:
     void send();
-    void handle_send(const boost::system::error_code& /*error*/,
-        size_t /*bytes_transferred*/);
-    void handle_read(const boost::system::error_code& /*error*/,
-        size_t /*bytes_transferred*/);
-
 private:
-    void setTask(char* s, unsigned int len)
-    {
-        std::packaged_task<bool(char*, unsigned int)> task([&](char* s, unsigned int len) {
-            sendBuf.clear();
-            char* HeadSize = (char*)& len;
-            sendBuf.push(HeadSize, sizeof(unsigned int));
-
-            sendBuf.push(s, len);
-            return true;
-            });
-
-        task_.swap(task);        
-    }
-private:
-    boost::asio::io_context io_context;
+    boost::asio::io_context io_context_;
     boost::asio::ip::tcp::socket socket_;
-    std::packaged_task<bool(char* s, unsigned int len)> task_;
-    std::shared_future<bool> fut_;
-    std::mutex m_mutex;
+    boost::asio::ip::tcp::resolver resolver_;
+    std::thread th_;
 };
 
 class mmTcpServerConnection : public boost::enable_shared_from_this<mmTcpServerConnection>,
@@ -81,25 +59,18 @@ class mmTcpServerConnection : public boost::enable_shared_from_this<mmTcpServerC
 public:
     typedef boost::shared_ptr<mmTcpServerConnection> pointer;
 
-    static pointer create(boost::asio::io_context& io_context, TCPProxy* proxy);
+    static pointer create(boost::asio::ip::tcp::socket /*socket*/, connectMgn& /*connectMgn*/ ,TCPProxy* /*proxy*/);
 
     boost::asio::ip::tcp::socket& socket();
     void write(char* s, unsigned int len);
     void receive();
     void init();
-protected:
-    //virtual void handleProcess(char*, unsigned int);
+    void close();
 private:
     void write();
 
-    mmTcpServerConnection(boost::asio::io_context& io_context, TCPProxy* n_proxy);
-    void handle_write(const boost::system::error_code& /*error*/,
-        unsigned int /*bytes_transferred*/);
-    void handle_receive(const boost::system::error_code& /*error*/,
-        unsigned int /*bytes_transferred*/);
+    mmTcpServerConnection(boost::asio::ip::tcp::socket& /*socket*/, connectMgn& /*connectMgn*/ , TCPProxy* n_proxy);
 private:
     boost::asio::ip::tcp::socket socket_;
-    std::promise<bool> proIn_;
-    std::shared_future<bool> fut_;
-    std::mutex m_mutex;
+    connectMgn& m_connectMgn;
 };

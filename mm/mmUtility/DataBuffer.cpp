@@ -36,11 +36,11 @@ char* DataBuffer::begin() const
 }
 char* DataBuffer::last() const
 {
-    return _p + _nlen;
+    return _nlen < 1 ?_p : _p + _nlen - 1;
 }
 char* DataBuffer::end() const
 {
-    return last() + 1;
+    return _nlen == 0? _p: last() + 1;
 }
 char* DataBuffer::head() const
 {
@@ -74,6 +74,7 @@ DataBuffer DataBuffer::operator=(const DataBuffer& buf)
 void DataBuffer::push(char* s, unsigned int nlen)
 {
     unsigned int newSize = nlen + _nlen;
+
     if (_p == nullptr)
     {
         _p = (char*)malloc(newSize);
@@ -88,18 +89,24 @@ void DataBuffer::push(char* s, unsigned int nlen)
     if (_p == nullptr)
         return;
    
-    memcpy(last(), s, nlen);
+    memcpy(end(), s, nlen);
     _nlen = newSize;
 }
 
 unsigned int DataBuffer::pop(unsigned int nlen)
 {
-    unsigned int nReserve = reserve();
-    int nPop = nlen;
-    if (nPop > nReserve)
-    {
-        nPop = nReserve;
-    }
+    int nPop = data(nlen);   
     _nHead += nPop;
     return nPop;
+}
+
+unsigned int DataBuffer::data(unsigned int nlen)
+{
+    unsigned int nReserve = reserve();
+    int nData = nlen;
+    if (nData > nReserve)
+    {
+        nData = nReserve;
+    }
+    return nData;
 }

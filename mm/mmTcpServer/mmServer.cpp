@@ -54,7 +54,28 @@ void startProcess()
 
 int main()
 {
-    mmServerTcpProxy* pro = new mmServerTcpProxy();
-    pro->initServer(PORT);
-    for (;;);
+    try
+    {
+        mmServerTcpProxy* proxy = new mmServerTcpProxy();
+        std::thread sendth([&proxy]()
+            {
+                std::string sen;
+                while (std::cin >> sen)
+                {
+                    proxy->broadcast((char*)sen.data(), sen.length());
+                }
+            });
+
+        proxy->initialize(PORT,proxy);       
+        sendth.join();
+        if (proxy != nullptr)
+        {
+            delete proxy;
+            proxy = nullptr;
+        }
+    }
+    catch (...)
+    {
+
+    }
 }

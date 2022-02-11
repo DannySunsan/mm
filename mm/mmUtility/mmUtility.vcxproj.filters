@@ -66,19 +66,19 @@
     <ClInclude Include="..\..\include\mmUtility\tcp\mmTcpServer.h">
       <Filter>tcp\head</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\mmUtility\tcp\mmTcpServerThread.h">
-      <Filter>tcp\head</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\mmUtility\tcp\TCPThreadStruct.h">
-      <Filter>tcp\head</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\mmUtility\tcp\connectMsg.h">
       <Filter>tcp\head</Filter>
     </ClInclude>
     <ClInclude Include="mmTcpServerTransaction.h">
       <Filter>tcp\head</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\mmUtility\tcp\mmTcpProxy.h">
+      <Filter>tcp\head</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\mmUtility\tcp\mmTcpServerMgn.h">
+      <Filter>tcp\head</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\mmUtility\tcp\connectMgn.h">
       <Filter>tcp\head</Filter>
     </ClInclude>
   </ItemGroup>
@@ -92,22 +92,22 @@
     <ClCompile Include="RefCounterPtr.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="mmTcpServerThread.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="mmTcpServer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="mmTcpConnection.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="mmTcpClient.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="DataBuffer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="connectMsg.cpp">
+    <ClCompile Include="connectMgn.cpp">
+      <Filter>tcp\src</Filter>
+    </ClCompile>
+    <ClCompile Include="mmTcpClient.cpp">
+      <Filter>tcp\src</Filter>
+    </ClCompile>
+    <ClCompile Include="mmTcpConnection.cpp">
+      <Filter>tcp\src</Filter>
+    </ClCompile>
+    <ClCompile Include="mmTcpServer.cpp">
+      <Filter>tcp\src</Filter>
+    </ClCompile>
+    <ClCompile Include="mmTcpServerMgn.cpp">
       <Filter>tcp\src</Filter>
     </ClCompile>
   </ItemGroup>

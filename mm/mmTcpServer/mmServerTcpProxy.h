@@ -4,8 +4,12 @@
 class mmServerTcpProxy:public TCPProxy
 {
 public:
+    mmServerTcpProxy();
+    ~mmServerTcpProxy();
     virtual void handleProcess(char*, unsigned int);
-    void initServer(unsigned short iPort);
+    void initialize(int nPort, mmServerTcpProxy* proxy);
+
+    void broadcast(char*, unsigned int);
 private:
-    mmTcpServerThread* th;
+    mmTcpServerMgn* serverMgn_;
 };

@@ -12,6 +12,7 @@ public:
     void push(char*, unsigned int nlen);
     unsigned int pop(unsigned int nlen);
     int reserve() const;
+    unsigned int data(unsigned int nlen);
 
     DataBuffer operator<<(const std::string str);
     DataBuffer operator=(const DataBuffer&);    

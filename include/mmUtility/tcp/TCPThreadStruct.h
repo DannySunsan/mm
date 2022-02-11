@@ -29,11 +29,16 @@ typedef struct
     int16_t i_port;
     char s_cmd[128];
     unsigned int len;
-}TCPMsgHead;
-typedef struct
+}TCPMsgHead,*TCPMsgHeadP;
+typedef struct TCPDATA
 {
     TCPMsgHead head;
     char* s;
+    TCPDATA()
+    {
+        memset(&head,0,sizeof(TCPMsgHead));
+        s = nullptr;
+    }
 }TCPData;
 struct DataFormat
 {
