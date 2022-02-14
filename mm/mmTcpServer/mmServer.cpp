@@ -57,17 +57,15 @@ int main()
     try
     {
         mmServerTcpProxy* proxy = new mmServerTcpProxy();
-        std::thread sendth([&proxy]()
-            {
-                std::string sen;
-                while (std::cin >> sen)
-                {
-                    proxy->broadcast((char*)sen.data(), sen.length());
-                }
-            });
-
-        proxy->initialize(PORT,proxy);       
-        sendth.join();
+       
+        proxy->initialize(PORT,proxy);     
+            
+        std::string sen;
+        while (std::cin >> sen)
+        {
+            proxy->broadcast((char*)sen.data(), sen.length());
+        }
+           
         if (proxy != nullptr)
         {
             delete proxy;

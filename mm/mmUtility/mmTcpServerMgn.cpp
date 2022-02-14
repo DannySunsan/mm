@@ -7,7 +7,7 @@ mmTcpServerMgn::mmTcpServerMgn(unsigned short usPort, TCPProxy* proxy):
 {
     m_server = new mmTcpServer(m_io, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), usPort), proxy);
     std::cout << "server start success, port: " << usPort << std::endl;
-    m_io.run();
+    th_ = std::thread([this]() { m_io.run(); });
 }
 
 mmTcpServerMgn::~mmTcpServerMgn()

@@ -103,7 +103,7 @@ void mmTcpClientConnection::connect(const char* ip, unsigned short port)
                 std::cout << "connect to :" << ep.address().to_string() << ",false\n";
             }
         });
-    io_context_.run();
+    th_ = std::thread([this]() { io_context_.run(); });
 }
 
 void mmTcpClientConnection::close()
@@ -157,7 +157,7 @@ void mmTcpClientConnection::send()
 
 void mmTcpClientConnection::read()
 {    
-    boost::asio::async_read(socket_,boost::asio::buffer(cache),
+    socket_.async_read_some(boost::asio::buffer(cache),
         [this](const boost::system::error_code& error,
         size_t bytes_transferred)
         {
@@ -253,7 +253,7 @@ void mmTcpServerConnection::receive()
     as long as the lambda is alive(i.e.the async.operation is in progress), 
         the connection instance is alive as well.*/
     auto self(boost::enable_shared_from_this<mmTcpServerConnection>::shared_from_this());
-    boost::asio::async_read(socket_, boost::asio::buffer(cache),[this, self](const boost::system::error_code& error,
+    socket_.async_read_some(boost::asio::buffer(cache),[this, self](const boost::system::error_code& error,
             size_t bytes_transferred)
             {
                 if (!error)

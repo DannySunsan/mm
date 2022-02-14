@@ -19,17 +19,12 @@ void client()
 {
     mmClientTcpProxy* proxy = new mmClientTcpProxy();
     mmTcpClient client1(proxy);
-    std::thread sendth([&client1]()
-        {
-            std::string sen;
-            while (std::cin >> sen)
-            {
-                client1.send((char*)sen.data(), sen.length());
-            }
-        });
-
     client1.connect("10.9.81.246", 443);
-    sendth.join();
+    std::string sen;
+    while (std::cin >> sen)
+    {
+        client1.send((char*)sen.data(), sen.length());
+    }
     if (proxy != nullptr)
     {
         delete proxy;

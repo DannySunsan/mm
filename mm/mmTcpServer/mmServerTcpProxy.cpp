@@ -33,7 +33,7 @@ void mmServerTcpProxy::handleProcess(char* s, unsigned int l)
     dataRet.head.len = sizeof(TCPMsgHead) + msg.length();
 
     dataRet.s = new char[msg.length()];
-    memcpy(dataRet.s, s, msg.length());
+    memcpy(dataRet.s, msg.data(), msg.length());
 
     serverMgn_->send(head->s_ip,(char*)&dataRet, dataRet.head.len);
 }

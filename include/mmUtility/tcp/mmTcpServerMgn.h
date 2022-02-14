@@ -11,5 +11,6 @@ public:
 private:
     mmTcpServer* m_server;//default server
     boost::asio::io_context m_io;
+    std::thread th_;
 };
 

@@ -29,12 +29,12 @@ void mmTcpClient::send(char* s, unsigned int len)
     pdata.i_port = client_->socket().local_endpoint().port();
     pdata.s_cmd[0] = '1';
     pdata.s_cmd[1] = '\0';
-    pdata.len = sizeof(TCPMsgHead) + len + 1;
+    pdata.len = sizeof(TCPMsgHead) + len;
     
     TCPData data;
     data.head = pdata;
-    data.s = new char[len+1];
+    data.s = new char[len];
+    memset(data.s,0, len);
     memcpy(data.s,s,len);
-    data.s[len] = '\0';
     client_->send((char*)&data, pdata.len);
 }
