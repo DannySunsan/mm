@@ -15,6 +15,8 @@
 #include <thread>
 #include <fstream>
 #include "mmClientTcpProxy.h"
+#include "common\mm_define.h"
+BEGIN_NAMESPACE_MM
 void client()
 {
     mmClientTcpProxy* proxy = new mmClientTcpProxy();
@@ -46,9 +48,11 @@ public:
         memset(s,0x00000001,13);
     }
 };
+END_NAMESPACE_MM
 #include <shellapi.h>
 #include <stdio.h>
+
 int main()
 {
-    client();
+    mm::client();
 }

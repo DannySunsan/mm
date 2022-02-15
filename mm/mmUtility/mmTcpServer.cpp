@@ -1,15 +1,14 @@
 #include "mmUtility\tcp\mmTcpServer.h"
 #include "mmUtility\tcp\mmTcpConnection.h"
-
 #include <iostream>
 #include "boost\thread.hpp"
 #include "boost\function.hpp"
 #include <memory>
+BEGIN_NAMESPACE_MM
 mmTcpServer::mmTcpServer(boost::asio::io_context& io_context, 
     const boost::asio::ip::tcp::endpoint& endpoint,
     TCPProxy* proxy):
     m_proxy(proxy),
-    m_bStop(false),
     m_acceptor(io_context, endpoint)
 {
     
@@ -22,8 +21,7 @@ mmTcpServer::~mmTcpServer()
 
 void mmTcpServer::stop()
 {
-    m_bStop = true;
-    //m_Connections.stop();
+    //m_connectMgn.
 }
 
 void mmTcpServer::setProxy(TCPProxy* proxy)
@@ -64,3 +62,4 @@ void mmTcpServer::start_accept()
             start_accept();
         });
 }
+END_NAMESPACE_MM

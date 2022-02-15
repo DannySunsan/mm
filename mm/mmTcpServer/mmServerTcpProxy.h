@@ -1,6 +1,7 @@
 #pragma once
 #include "mmUtility\tcp\mmTcpProxy.h"
 #include "mmUtility/util.h"
+BEGIN_NAMESPACE_MM
 class mmServerTcpProxy:public TCPProxy
 {
 public:
@@ -13,3 +14,4 @@ public:
 private:
     mmTcpServerMgn* serverMgn_;
 };
+END_NAMESPACE_MM

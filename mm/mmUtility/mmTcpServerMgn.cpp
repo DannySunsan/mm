@@ -2,6 +2,7 @@
 #include "mmUtility\tcp\mmTcpServerMgn.h"
 #include "boost\thread.hpp"
 #include <iostream>
+BEGIN_NAMESPACE_MM
 mmTcpServerMgn::mmTcpServerMgn(unsigned short usPort, TCPProxy* proxy):
     m_io()   
 {
@@ -12,6 +13,7 @@ mmTcpServerMgn::mmTcpServerMgn(unsigned short usPort, TCPProxy* proxy):
 
 mmTcpServerMgn::~mmTcpServerMgn()
 {
+    th_.join();
     if (m_server)
     {
         delete m_server;
@@ -33,3 +35,4 @@ void mmTcpServerMgn::broadcast(char* s, unsigned int len)
 {
     m_server->broadcast( s, len);
 }
+END_NAMESPACE_MM

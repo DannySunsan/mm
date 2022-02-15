@@ -1,4 +1,6 @@
 #pragma once
+#include "common\mm_define.h"
+BEGIN_NAMESPACE_MM
 template<typename T>
 class RefCounterPtr
 {
@@ -13,3 +15,4 @@ private:
     T* _p;
     int _count;
 };
+END_NAMESPACE_MM

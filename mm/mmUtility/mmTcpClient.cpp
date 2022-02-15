@@ -2,7 +2,7 @@
 #include "mmUtility\tcp\mmTcpClient.h"
 #include <iostream>
 #include "boost\thread.hpp"
-
+BEGIN_NAMESPACE_MM
 mmTcpClient::mmTcpClient(TCPProxy* proxy)
 {
     client_ = new mmTcpClientConnection(proxy);
@@ -38,3 +38,4 @@ void mmTcpClient::send(char* s, unsigned int len)
     memcpy(data.s,s,len);
     client_->send((char*)&data, pdata.len);
 }
+END_NAMESPACE_MM

@@ -9,7 +9,7 @@
 
 #include "mmUtility/hashMap.h"
 //#include <thread>
-
+BEGIN_NAMESPACE_MM
 std::vector<std::string> reg(std::string s, std::string pattern, int nStart = 0)
 {
     auto res = std::vector<std::string>();
@@ -55,3 +55,4 @@ std::string CmmUtility::make_daytime_string()
 {
     return boost::posix_time::to_iso_extended_string(boost::posix_time::second_clock::local_time());
 }
+END_NAMESPACE_MM

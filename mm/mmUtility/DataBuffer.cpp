@@ -1,6 +1,6 @@
 #include "mmUtility\tcp\DataBuffer.h"
 //#include <malloc.h>
-
+BEGIN_NAMESPACE_MM
 DataBuffer::DataBuffer() :
     _p(nullptr),
     _nlen(0),
@@ -110,3 +110,4 @@ unsigned int DataBuffer::data(unsigned int nlen)
     }
     return nData;
 }
+END_NAMESPACE_MM

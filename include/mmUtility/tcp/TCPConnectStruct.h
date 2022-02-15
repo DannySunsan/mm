@@ -1,5 +1,7 @@
 #pragma once
+#include "common\mm_define.h"
 #include <memory>
+BEGIN_NAMESPACE_MM
 enum eTcpStatus
 {
     STATUS_UNPREPARED = -1,
@@ -52,3 +54,5 @@ struct DataFormat
 };
 #pragma pack()
 
+#define SENDSIZE        1024
+END_NAMESPACE_MM

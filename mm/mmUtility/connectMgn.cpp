@@ -1,6 +1,7 @@
 #include "mmUtility\tcp\connectMgn.h"
 #include "boost\thread.hpp"
 #include <memory>
+BEGIN_NAMESPACE_MM
 connectMgn::connectMgn()
 {
 
@@ -32,3 +33,13 @@ void connectMgn::remove(std::string ip)
         m_mapConnections.erase(itFind);
     }
 }
+
+void connectMgn::close()
+{
+    for (auto it = m_mapConnections.begin();it != m_mapConnections.end();it++)
+    {
+        it->second->sync_close();
+    }
+    m_mapConnections.clear();
+}
+END_NAMESPACE_MM

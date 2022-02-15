@@ -3,6 +3,7 @@
 #include<fstream>
 #include<iostream>
 #include "mmUtility/util.h"
+BEGIN_NAMESPACE_MM
 void mmClientTcpProxy::handleProcess(char* s, unsigned int l)
 {
     TCPMsgHead* head = (TCPMsgHead*)s;
@@ -15,3 +16,4 @@ void mmClientTcpProxy::handleProcess(char* s, unsigned int l)
     of << data;
     std::cout << data << std::endl;
 }
+END_NAMESPACE_MM

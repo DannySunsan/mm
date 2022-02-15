@@ -1,5 +1,7 @@
 #pragma once
 #include<string>
+#include "common\mm_define.h"
+BEGIN_NAMESPACE_MM
 class DataBuffer
 {
 public:
@@ -26,3 +28,4 @@ private:
     unsigned int _nlen;
     unsigned int _nHead;
 };
+END_NAMESPACE_MM

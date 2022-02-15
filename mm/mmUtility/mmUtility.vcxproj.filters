@@ -39,9 +39,6 @@
     <ClInclude Include="strategy.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="mm_define.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\mmUtility\hashtable.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -66,12 +63,6 @@
     <ClInclude Include="..\..\include\mmUtility\tcp\mmTcpServer.h">
       <Filter>tcp\head</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\mmUtility\tcp\TCPThreadStruct.h">
-      <Filter>tcp\head</Filter>
-    </ClInclude>
-    <ClInclude Include="mmTcpServerTransaction.h">
-      <Filter>tcp\head</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\mmUtility\tcp\mmTcpProxy.h">
       <Filter>tcp\head</Filter>
     </ClInclude>
@@ -79,6 +70,15 @@
       <Filter>tcp\head</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\mmUtility\tcp\connectMgn.h">
+      <Filter>tcp\head</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\mmUtility\tcp\mmConnectionData.h">
+      <Filter>tcp\head</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\mmUtility\tcp\TCPConnectStruct.h">
+      <Filter>tcp\head</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\mmUtility\tcp\mmTcpClientConnection.h">
       <Filter>tcp\head</Filter>
     </ClInclude>
   </ItemGroup>
@@ -108,6 +108,12 @@
       <Filter>tcp\src</Filter>
     </ClCompile>
     <ClCompile Include="mmTcpServerMgn.cpp">
+      <Filter>tcp\src</Filter>
+    </ClCompile>
+    <ClCompile Include="mmConnectionData.cpp">
+      <Filter>tcp\src</Filter>
+    </ClCompile>
+    <ClCompile Include="mmTcpClientConnection.cpp">
       <Filter>tcp\src</Filter>
     </ClCompile>
   </ItemGroup>

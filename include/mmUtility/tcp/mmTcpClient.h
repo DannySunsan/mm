@@ -1,5 +1,6 @@
 #pragma once
-#include "mmTcpConnection.h"
+#include "mmTcpClientConnection.h"
+BEGIN_NAMESPACE_MM
 class MUTILITY_DLLEXPORT mmTcpClient
 {
 public:
@@ -10,3 +11,4 @@ public:
 private:
     mmTcpClientConnection* client_;    
 };
+END_NAMESPACE_MM

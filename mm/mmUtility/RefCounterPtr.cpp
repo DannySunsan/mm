@@ -1,5 +1,6 @@
 #include <atomic>
 #include "RefCounterPtr.h"
+BEGIN_NAMESPACE_MM
 template<typename T>
 RefCounterPtr<T>::RefCounterPtr(const T* p)
 {
@@ -54,3 +55,4 @@ T* RefCounterPtr<T>::Get()
 {
     return _p;
 }
+END_NAMESPACE_MM

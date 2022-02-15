@@ -2,6 +2,7 @@
 #include "boost\asio.hpp"
 #include "connectMgn.h"
 #include "mmTcpProxy.h"
+BEGIN_NAMESPACE_MM
 class mmTcpServer:public std::unique_ptr<mmTcpServer>
 {
 public:  
@@ -21,5 +22,5 @@ private:
     boost::asio::ip::tcp::acceptor m_acceptor;
     connectMgn m_connectMgn;
     TCPProxy* m_proxy;
-    bool m_bStop;
 };
+END_NAMESPACE_MM

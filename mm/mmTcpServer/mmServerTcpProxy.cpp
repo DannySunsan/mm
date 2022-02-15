@@ -3,17 +3,22 @@
 #include "mmUtility/util.h"
 #include<fstream>
 #include<iostream>
-mmServerTcpProxy::mmServerTcpProxy()
+#include<memory.h>
+BEGIN_NAMESPACE_MM
+mmServerTcpProxy::mmServerTcpProxy():
+    serverMgn_(nullptr)
 {
-
 }
+
 mmServerTcpProxy::~mmServerTcpProxy()
 {
 }
+
 void mmServerTcpProxy::initialize(int nPort, mmServerTcpProxy* proxy)
 {
     serverMgn_ = new mmTcpServerMgn(nPort, proxy);
 }
+
 void mmServerTcpProxy::handleProcess(char* s, unsigned int l)
 {
     TCPMsgHead* head = (TCPMsgHead*)s;
@@ -50,3 +55,4 @@ void mmServerTcpProxy::broadcast(char* data, unsigned int nlen)
 
     serverMgn_->broadcast((char*)& dataSend, dataSend.head.len);
 }
+END_NAMESPACE_MM

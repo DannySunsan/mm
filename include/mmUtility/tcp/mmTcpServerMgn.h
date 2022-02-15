@@ -1,5 +1,6 @@
 #pragma once
 #include "mmTcpServer.h"
+BEGIN_NAMESPACE_MM
 class MUTILITY_DLLEXPORT mmTcpServerMgn
 {
 public:
@@ -13,4 +14,5 @@ private:
     boost::asio::io_context m_io;
     std::thread th_;
 };
+END_NAMESPACE_MM
 
